@@ -21,7 +21,7 @@ app = Flask(__name__)
 #cursor = tweepy.Cursor(api.user_timeline, id='elonmusk', tweet_mode="extended").items(1)
 
 
-numTweets = 200
+numTweets = 20
 tweets = []
 likes = []
 time = []
@@ -36,7 +36,10 @@ for i in tweepy.Cursor(api.user_timeline, id='elonmusk', tweet_mode="extended").
 df = pd.DataFrame({'tweets':tweets, 'likes':likes, 'time':time, 'location':location})
 df = df[~df.tweets.str.contains("RT")] #filtering out retweets
 df = df.reset_index(drop = True)
-print(df)
+
+for i in range(len(tweets)):
+    print(i, " " , tweets[i])
+print(vs.sentimentDataSend(tweets))
 
 mostLikedTweets = df.loc[df.likes.nlargest(5).index]
 print(mostLikedTweets)
@@ -62,27 +65,19 @@ def chartspage():
 
 @app.route('/charts', methods=["POST"])
 def tweetspage():  # put application's code here
-
     if request.method == 'POST':
-
         query = request.form["query"]
-        cursor = tweepy.Cursor(api.search_tweets, q=query, tweet_mode="extended").items(1)
-        tweet = ''
+        cursor = tweepy.Cursor(api.search_tweets, q=query, tweet_mode="extended").items(2)
         for i in cursor:
-            print(i, '\n')
-            print(dir(i), '\n')
-            print(i.full_text, '\n')
-            tweet = i.full_text
+            tweet = []
+            tweet.append(i.full_text)
         with open('static/CSV/tweet.csv', 'w', newline='') as f:
             thewriter = csv.writer(f)
-            thewriter.writerow([tweet])
-            thewriter.writerow([vs.sentimentDataSend(str(tweet))])
-
-
+            thewriter.writerow(tweet)
+            sentData = [vs.sentimentDataSend(tweet)]
+            thewriter.writerow(sentData)
         return render_template('charts.html', query = tweets)
-
     return render_template('404.html')
-
 
 if __name__ == '__main__':
     app.run()
