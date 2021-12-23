@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Python Flask Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="jumbotron text-center" style="background-color: #CA1616">
+        <div class="row">
+            <div class="col-sm2 center"></div>
+            <div class="col-sm-4 center"><img src="{{ url_for('static', filename='images/TopImage.png') }}" height="100px"></div>
+            <div class="col-sm-4 center" style="color: #F3F6F4 "><h1>Lorcan's Data Visualization Project 2021</h1></div>
+            <div class="col-sm2 center"></div>
+        </div>
+    </div>
+    {% include 'partials/navigation.html' %}
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

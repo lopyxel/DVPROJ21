@@ -1,0 +1,10 @@
+{% extends 'partials/layout.html' %}
+
+{% block content %}
+    <h1 class="col-sm-4 center"> Here's some Charts</h1>
+    <form method="POST" action="/charts">
+        <textarea name="query"></textarea>
+        <button type="submit">SUBMIT</button>
+    <p>{{ output }}</p>
+    </form>
+{% endblock %}
