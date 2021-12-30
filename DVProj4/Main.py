@@ -39,7 +39,7 @@ df = df.reset_index(drop = True)
 
 for i in range(len(tweets)):
     print(i, " " , tweets[i])
-print(vs.sentimentDataSend(tweets))
+print(vs.sentimentRating(tweets))
 
 mostLikedTweets = df.loc[df.likes.nlargest(5).index]
 print(mostLikedTweets)
@@ -67,14 +67,13 @@ def chartspage():
 def tweetspage():  # put application's code here
     if request.method == 'POST':
         query = request.form["query"]
-        cursor = tweepy.Cursor(api.search_tweets, q=query, tweet_mode="extended").items(2)
-        for i in cursor:
-            tweet = []
-            tweet.append(i.full_text)
+        tweet = []
+        for i in tweepy.Cursor(api.search_tweets, q=query, tweet_mode="extended").items(2):
+            tweet.append([i.full_text])
         with open('static/CSV/tweet.csv', 'w', newline='') as f:
             thewriter = csv.writer(f)
             thewriter.writerow(tweet)
-            sentData = [vs.sentimentDataSend(tweet)]
+            sentData = vs.sentimentRating(tweet)
             thewriter.writerow(sentData)
         return render_template('charts.html', query = tweets)
     return render_template('404.html')

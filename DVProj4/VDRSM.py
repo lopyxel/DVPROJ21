@@ -18,9 +18,9 @@ def sentiment_analyser_score(data):
 
 
 
-def sentimentDataSend(data):#requires a list of texts even of len 1
+def sentimentRating(data):#requires a list of texts, even of len 1
     for i in data:
-        print(i)
+        print(i," of" ,len(data))
         score = analyser.polarity_scores(i).get('compound')
         level = ""
         if score < -0.7:
@@ -42,5 +42,5 @@ def sentimentDataSend(data):#requires a list of texts even of len 1
 
 # sentiment_analyser_score(text)
 data = ["whats up my guy", "fuck you richard(MEME)", "I love existence "]
-sentimentDataSend(data)
+sentimentRating(data)
 
