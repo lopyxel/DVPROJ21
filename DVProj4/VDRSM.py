@@ -6,9 +6,6 @@ text = "why the hell did you leave me in the rain for so god damn long!"
 analyser = SentimentIntensityAnalyzer()
 blob = TextBlob(text)
 
-#print (text)
-#print("Textblob output: ", blob.sentiment.polarity)  # much less accurate
-
 def sentiment_analyser_score(data):
     score = analyser.polarity_scores(data)
     # print("{:-<40} {}".format(data,str(score)))
@@ -43,3 +40,5 @@ def sentimentRating(data):#requires a list of texts, even of len 1
 data = ["whats up my guy", "fuck you richard(MEME)", "I love existence "]
 #sentimentRating(data)
 #print("vader output: ", sentimentRating([str(text)]))
+
+
